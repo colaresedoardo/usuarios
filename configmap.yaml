@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dados
+data:
+  DATABASE_NAME: "pessoas"
+  DATABASE_HOST: "postgres-svc"

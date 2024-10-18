@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appusuarios
+  labels:
+    app: appusuarios
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: appusuarios
+  template:
+    metadata:
+      labels:
+        app: appusuarios
+    spec:
+      containers:
+      - name: usuarios-api
+        image: edoardoco/usuariosapi:1
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DATABASE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: dados
+                key: DATABASE_NAME
+
+          - name: DATABASE_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: dados
+                key: DATABASE_HOST       
+
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: senhas
+                key: DATABASE_USER
+                
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: senhas
+                key: DATABASE_PASSWORD                  

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-pessoas 
+spec:
+  type: LoadBalancer
+  selector:
+    app: appusuarios
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30000 # porta externa que vai de 30000-32767
